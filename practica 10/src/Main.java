@@ -1,11 +1,11 @@
 import javax.swing.JOptionPane;
 import java.security.SecureRandom;
 
-class Main {
+class PasswordGenerator {
     private static final String MINUSCULAS = "abcdefghijklmnopqrstuvwxyz";
     private static final String MAYUSCULAS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String NUMEROS = "0123456789";
-    private static final String ESPECIALES = "!@#$%^&*()-_+=<>?";
+    private static final String ESPECIALES = "!@#$%^&*()_\\-+=<>?";
 
     public static String generarPassword(int longitud, boolean incluirMayusculas, boolean incluirEspeciales) {
         String caracteres = MINUSCULAS + NUMEROS;
@@ -30,7 +30,7 @@ class Main {
         if (password.length() >= 8) puntuacion++;
         if (password.matches(".*[A-Z].*")) puntuacion++;
         if (password.matches(".*[0-9].*")) puntuacion++;
-        if (password.matches(".*[!@#$%^&*()\-_=+<>?].*")) puntuacion++;
+        if (password.matches(".*[!@#$%^&*()_\\-+=<>?].*")) puntuacion++;
 
         switch (puntuacion) {
             case 4: return "Fuerte";
@@ -46,14 +46,22 @@ public class Main {
         int longitud = 8;
         String inputLongitud = JOptionPane.showInputDialog("Ingrese la longitud del password (8 por defecto):");
         if (inputLongitud != null && !inputLongitud.isEmpty()) {
-            longitud = Integer.parseInt(inputLongitud);
+            try {
+                longitud = Integer.parseInt(inputLongitud);
+                if (longitud < 1) {
+                    JOptionPane.showMessageDialog(null, "La longitud debe ser mayor a 0. Se usará 8 por defecto.");
+                    longitud = 8;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Entrada inválida. Se usará 8 por defecto.");
+            }
         }
 
         int incluirMayusculas = JOptionPane.showConfirmDialog(null, "¿Incluir mayúsculas?", "Opciones", JOptionPane.YES_NO_OPTION);
         int incluirEspeciales = JOptionPane.showConfirmDialog(null, "¿Incluir caracteres especiales?", "Opciones", JOptionPane.YES_NO_OPTION);
 
-        String password = Main.generarPassword(longitud, incluirMayusculas == JOptionPane.YES_OPTION, incluirEspeciales == JOptionPane.YES_OPTION);
-        String fortaleza = Main.evaluarFortaleza(password);
+        String password = PasswordGenerator.generarPassword(longitud, incluirMayusculas == JOptionPane.YES_OPTION, incluirEspeciales == JOptionPane.YES_OPTION);
+        String fortaleza = PasswordGenerator.evaluarFortaleza(password);
 
         JOptionPane.showMessageDialog(null, "Password generado: " + password + "\nFortaleza: " + fortaleza);
     }
