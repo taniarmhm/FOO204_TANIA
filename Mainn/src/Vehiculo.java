@@ -1,10 +1,10 @@
-public class vehículo {
+public class Vehiculo {
     private String placa;
     private String modelo;
     private double capacidadCarga;
-    private conductor conductor;
+    private Conductor conductor;
 
-    public vehículo (String placa, String modelo, double capacidadCarga) {
+    public Vehiculo(String placa, String modelo, double capacidadCarga) {
         this.placa = placa;
         this.modelo = modelo;
         this.capacidadCarga = capacidadCarga;
@@ -34,11 +34,11 @@ public class vehículo {
         this.capacidadCarga = capacidadCarga;
     }
 
-    public conductor getConductor() {
+    public Conductor getConductor() {
         return conductor;
     }
 
-    public void asignarConductor(conductor conductor) {
+    public void asignarConductor(Conductor conductor) {
         if (this.conductor == null) {
             this.conductor = conductor;
         } else {

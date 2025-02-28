@@ -1,9 +1,9 @@
-public class conductor  {
+public class Conductor {
     private String nombre;
     private final String identificacion;
     private final String licencia;
 
-    public conductor (String nombre, String identificacion, String licencia) {
+    public Conductor(String nombre, String identificacion, String licencia) {
         this.nombre = nombre;
         this.identificacion = identificacion;
         this.licencia = licencia;
